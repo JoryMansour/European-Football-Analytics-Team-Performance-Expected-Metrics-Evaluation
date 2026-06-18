@@ -30,37 +30,20 @@ Football clubs, betting syndicates, and sports media need to evaluate team perfo
 
 # Tools Used
 
-* **Python (Pandas):** For initial Data Exploration, MultiIndex header flattening, and data cleaning.
-* **Microsoft Power BI:** For data modeling, DAX measure creation, and interactive data visualization.
-
+* **Python (Pandas):** For initial data exploration, descriptive statistical assessment, and data verification.
+* **HTML5 & Tailwind CSS:** For building a clean, modern, responsive user interface utilizing a dark-mode theme.
+* **Chart.js (JavaScript):** For engineering custom, interactive, dynamic data visualizations including scatter plots with custom parity lines and coordinated cross-chart highlighting.
+* **GitHub Pages:** For hosting and deploying the live, production-ready interactive data application.
 ---
 
-# Methodology & Data Cleaning
+# Methodology & Data Architecture
 
-Before visualization, the raw dataset required transformation to be ingested correctly by Power BI:
+1. **Data Ingestion & Extraction:** Extracted team statistics from the early-season Premier League tracker (`team_season_stats.csv`), isolating actual production against advanced modeling variables.
+2. **Feature Engineering (JavaScript Objects):** Normalized the raw multi-index values into structured JSON objects. Mathematically derived the efficiency differential metric directly within the application schema:
+   $$\text{xG\_diff} = \text{Total\_Goals} - \text{Expected\_Goals (xG)}$$
+3. **Coordinated Highlighting State Logic:** Programmed a central event listener connected to the DOM dropdown selector. When a user highlights a specific club, the system dynamically calculates state changes, dimming baseline points to `rgba(75, 85, 99, 0.1)` while accenting the target team across all three charts simultaneously using high-contrast vectors (`#f97316`).
 
-1. **Header Flattening:** Python was used to merge the 3-level MultiIndex headers into single descriptive strings (e.g., `('Expected', 'xG')` to `Expected_xG`).
-2. **Feature Engineering:** Calculated key differentials to measure performance efficiency.
-* `xG_Difference = Total_Goals - Expected_xG`
-
-
-3. **Data Type Formatting:** Converted Possession to decimal percentages and ensured match metrics were typed as whole integers.
-
-# Key DAX Measures
-
-```dax
-Total Goals = SUM(TeamStats[Total_Goals])
-Total xG = SUM(TeamStats[Expected_xG])
-
-xG Difference = [Total Goals] - [Total xG]
-
-Avg Possession % = AVERAGE(TeamStats[Possession])
-
-Overperformance Status = 
-IF([xG Difference] > 0, "Overperforming", "Underperforming")
-
-```
-
+   
 ---
 
 # Dashboard & Visualizations
@@ -68,12 +51,10 @@ IF([xG Difference] > 0, "Overperforming", "Underperforming")
 [***DASHBOARD***](https://jorymansour.github.io/European-Football-Analytics-Team-Performance-Expected-Metrics-Evaluation/)
 
 
-# Core Visuals Include:
-
-* **The Efficiency Quadrant (Scatter Plot):** `Expected_xG` vs. `Total_Goals` with a 45-degree parity line to visually separate clinical/lucky teams from wasteful/unlucky ones.
-* **Over/Under-Performance Bar Chart:** Highlighting `xG_Difference` sorted by magnitude.
-* **Playstyle Matrix:** `Possession %` vs. `Progressive Passes` to evaluate if teams are effectively using the ball to advance up the pitch.
-
+### Visualizations Implemented:
+* **The Efficiency Quadrant (Scatter Plot):** Plots `Expected Goals` vs. `Actual Goals` paired with an explicit, dashed $y=x$ equilibrium line to expose team clinical variance at a glance.
+* **Finishing Efficiency (Horizontal Bar Chart):** Displays the calculated `xG Difference` sorted sequentially to rank the league's most clinical and most wasteful squads.
+* **Playstyle Matrix (Scatter Plot):** Correlates `Average Possession (%)` directly against `Progressive Passes` to evaluate structural space penetration efficiency.
 ---
 
 # Key Insights & Findings
